@@ -234,11 +234,11 @@ bool InitializeObjects()
    
    g_XModel = new CXModel(g_D3DDevice);
 
-  // if(FAILED(g_XModel->LoadXfile("skybox.x")))
-	//	return false;
+  //if(FAILED(g_XModel->LoadXfile("maps/skyBox.x")))
+	//return false;
 
-   if(!LoadScript("sphere.lvl"))
-	   return false;
+   if(!LoadScript("maps/level1/level1.lvl"))
+	 return false;
    
    g_startTime= (float)timeGetTime();
 
@@ -268,7 +268,7 @@ bool InitializeObjects()
 
 
    	// Define camera information.
-   D3DXVECTOR3 cameraPos(0.0f, center.y - (radius * 3), -100.0f);
+   D3DXVECTOR3 cameraPos(0.0f, center.y - (radius * 3), 100.0f);
    D3DXVECTOR3 lookAtPos = center - cameraPos;
    D3DXVec3Normalize(&lookAtPos,&lookAtPos);
    D3DXVECTOR3 upDir(0.0f, 1.0f, 0.0f);
@@ -294,6 +294,8 @@ void RenderScene()
 
    // Begin the scene.  Start rendering.
    g_D3DDevice->BeginScene();
+
+   g_D3DDevice->SetRenderState(D3DRS_LIGHTING,FALSE);
 
       // Apply the view (camera).
       g_D3DDevice->SetTransform(D3DTS_VIEW, &g_ViewMatrix);
@@ -335,7 +337,7 @@ bool LoadScript(char* file)
 	{
 		g_script.ParseCommand(command);
 
-		if(stricmp(command,"LoadSphereAsX") == 0){}
+		if(stricmp(command,"LoadSkyBoxAsX") == 0){}
 		else if(stricmp(command,"LoadTerrainAsX") == 0){}
 		else if(stricmp(command,"LoadStaticModelAsX") == 0){}
 		else if(stricmp(command,"LoadAnimtedModelAsX") == 0){}
@@ -358,7 +360,7 @@ bool LoadScript(char* file)
 	{
 		g_script.ParseCommand(command);
 
-		if(stricmp(command,"LoadSphereAsX") == 0)
+		if(stricmp(command,"LoadSkyBoxAsX") == 0)
 		{
 			g_script.ParseStringParse(param);
 
@@ -375,7 +377,7 @@ bool LoadScript(char* file)
 
 	}
 
-	//script.Shutdown();
+	//	g_script.Shutdown();
 
 	return true;
 }

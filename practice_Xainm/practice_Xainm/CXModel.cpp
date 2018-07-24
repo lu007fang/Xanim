@@ -1,5 +1,6 @@
 #include "CXModel.h"
 
+
 CXModel::CXModel(LPDIRECT3DDEVICE9 device)
 {
 	m_device = device;
